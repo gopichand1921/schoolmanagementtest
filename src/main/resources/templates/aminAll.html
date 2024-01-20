@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Add necessary head content here -->
+</head>
+<body>
+
+<h2>Admin Management</h2>
+
+<!-- Search Form -->
+<form th:action="@{/AdminHome}" method="get">
+  <label for="searchKeyword">Search:</label>
+  <input type="text" id="searchKeyword" name="keyword" class="form-control" placeholder="Enter keyword">
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<!-- Admin Table -->
+<table class="table">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Fullname</th>
+    <th>Role</th>
+    <th>Username</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="admin : ${adminsdata}">
+    <td th:text="${admin.Id}"></td>
+    <td th:text="${admin.Fullname}"></td>
+    <td th:text="${admin.role}"></td>
+    <td th:text="${admin.username}"></td>
+    <td>
+      <a th:href="@{'/admin/edit/' + ${admin.Id}}" class="btn btn-primary btn-sm">Edit</a>
+      <a th:href="@{'/admin/delete/' + ${admin.Id}}" class="btn btn-danger btn-sm">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

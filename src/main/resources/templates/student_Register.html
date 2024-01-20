@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Form</title>
+  <!-- Add Bootstrap CSS link -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      padding: 20px;
+    }
+
+    .card {
+      width: 70%;
+      margin: auto;
+      display: flex;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card img {
+      width: 150px; /* Adjust the width of the image */
+      object-fit: cover; /* Ensure the image retains its aspect ratio */
+      border-radius: 4px 0 0 4px; /* Rounded corners on the left side */
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    form {
+      width: 100%;
+    }
+
+    .btn-save {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <img src="data:image/jpeg;base64,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" alt="Student Image">
+  <div class="card-body">
+    <h2>Student Form</h2>
+
+    <form th:object="${student}" th:action="@{/students/save}" action="#" method="post">
+      <div class="form-group">
+        <label for="firstname">First Name:</label>
+        <input type="text" class="form-control" id="firstname" th:field="*{firstname}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
+      </div>
+
+      <div class="form-group">
+        <label>Gender:</label>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" id="maleRadio" th:field="*{gander}" value="Male" required>
+          <label class="form-check-label" for="maleRadio">Male</label>
+        </div>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" id="femaleRadio" th:field="*{gander}" value="Female" required>
+          <label class="form-check-label" for="femaleRadio">Female</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="fatherName">Father's Name:</label>
+        <input type="text" class="form-control" id="fatherName" th:field="*{fatherName}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="motherName">Mother's Name:</label>
+        <input type="text" class="form-control" id="motherName" th:field="*{motherName}" required>
+      </div>
+
+      <div class="form-group">
+        <label>Grade:</label>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="gradeA" th:field="*{grade}" value="A">
+          <label class="form-check-label" for="gradeA">Grade A</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="gradeB" th:field="*{grade}" value="B">
+          <label class="form-check-label" for="gradeB">Grade B</label>
+        </div>
+        <!-- Add more checkboxes for other grades if needed -->
+      </div>
+
+      <div class="form-group">
+        <label>Class of Student:</label>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="class10" th:field="*{classofStudent}" value="10">
+          <label class="form-check-label" for="class10">Class 10</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="class11" th:field="*{classofStudent}" value="11">
+          <label class="form-check-label" for="class11">Class 11</label>
+        </div>
+        <!-- Add more checkboxes for other classes if needed -->
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address:</label>
+        <input type="text" class="form-control" id="address" th:field="*{address}" required>
+      </div>
+
+
+      <button type="submit" class="btn btn-primary btn-save">Save Student</button>
+    </form>
+  </div>
+</div>
+
+<!-- Add Bootstrap JS and Popper.js scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Home</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .header {
+            width: 100%;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .logout-btn {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Admin Panel</h1>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="/adminview">Admin Tool</a>
+        <a class="navbar-brand" href="/students">Students</a>
+        <a class="navbar-brand" href="/teacher/teachers">Teachers</a>
+        <!-- Add other navigation items if needed -->
+        <a href="/logout" class="btn btn-danger float-right logout-btn">Logout</a>
+    </nav>
+</div>
+
+<form class="form-inline my-2 my-lg-0" th:action="@{/students}" method="get">
+    <input class="form-control mr-sm-2" type="text" id="keyword" name="name" placeholder="Enter keyword">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
+
+</div>
+</nav>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th> Number</th>
+        <th> Name</th>
+        <th>action</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="admins : ${adminsdata}">
+        <td th:text="${admins.id}"></td>
+        <td th:text="${admins.fullname}"></td>
+
+        <td>
+            <a class="btn btn-warning" th:href="@{'/edit/' + ${admins.id}}">Edit</a>
+            <a class="btn btn-danger" th:href="@{'/delete/' + ${admins.id}}">Delete</a>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+</div>
+
+<!-- Add Bootstrap JS and Popper.js scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
